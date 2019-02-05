@@ -2,7 +2,10 @@
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
-  
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('../assets/fonts/HelveticaNeue-Black.woff'); 
+}
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
   
@@ -35,7 +38,7 @@
   }
   
   a:hover {
-      text-decoration: none;
+    text-decoration: none;
     color: #fc00ff;
     border-color: #fc00ff;
   }
@@ -49,7 +52,7 @@
       font-family: Poppins-Regular;
       font-size: 14px;
       line-height: 1.7;
-      color: #666666;
+      color: #000000;
       margin: 0px;
   }
   
@@ -164,7 +167,9 @@
     width: 780px;
     background: #fff;
     border-radius: 10px;
-    position: relative;
+    position: absolute;
+    top: 50px;
+    height: auto;
   }
   
   
@@ -479,7 +484,7 @@
   .emotion-icon {
     height: 100px;
     width: 100px;
-
+    margin-left: 30px;
   }
   
   @media (max-width: 992px) {
@@ -496,12 +501,14 @@
     .wrap-login100 {
       padding-left: 60px;
       padding-right: 60px;
+      width: 700px;
     }
   
   @media (max-width: 576px) {
     .wrap-login100 {
       padding-left: 15px;
       padding-right: 15px;
+      width: 700px;
     }
   
     .btn-face,
