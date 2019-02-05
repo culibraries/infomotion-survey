@@ -1,20 +1,15 @@
 import { Emotion } from './emotion';
-import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
 
 export class EmotionUrl {
-    emotion: Emotion;
-    base64: string;
-    base64Active: string;
-    url: SafeUrl;
-    urlActive: SafeUrl;
+    url: string;
+    urlActive: string;
+    active: boolean;
 
-    constructor(sanitizer: DomSanitizer,emotion: Emotion,base64: string, base64Active: string)
+    constructor(url: string, urlActive: string)
     {
-        this.emotion = emotion;
-        this.base64 = base64;
-        this.base64Active = base64Active;
-        this.url = sanitizer.bypassSecurityTrustResourceUrl(base64);
-        this.urlActive = sanitizer.bypassSecurityTrustResourceUrl(base64Active);
+        this.url = url;
+        this.urlActive = urlActive;
+        this.active = false;
     }
 
     /**

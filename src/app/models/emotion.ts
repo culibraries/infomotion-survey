@@ -1,7 +1,5 @@
-import { SafeUrl } from '@angular/platform-browser';
-
 export class Emotion {
-    src: SafeUrl;
+    src: string;
     active: boolean; 
 
     constructor()
