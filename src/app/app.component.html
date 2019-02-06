@@ -15,13 +15,16 @@
             <button (click)="toggleEmotion(-1)"><img class="emotion-icon" id="negative-icon" [src]="negativeURL"/></button>
         </div>
       </div>
-      
-      <form *ngIf = "isShow">
+
+      <form *ngIf = "isShow" novalidate #surveyForm="ngForm" (ngSubmit) = "onSubmit(surveyForm)">
         <div class="form-group">
           <span ><p class="p-t-30 p-b-33 text-center" style="font-size: 30px">Any additional comments</p></span>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+          <textarea class="form-control comment-box" rows="5" name="comment"
+          [(ngModel)]="survey.comment"></textarea>
         </div>
-        <button type="submit" class="btn d-flex justify-content-center" style="color: black; background-color: #CFB87C">Submit</button>
+        <div class="form-group text-right">
+          <button type="submit" class="btn" style="color: black; background-color: #CFB87C">Submit</button>
+        </div>
       </form>
     </div>
   </div>
