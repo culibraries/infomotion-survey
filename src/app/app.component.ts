@@ -19,12 +19,16 @@ export class AppComponent {
   private positive = new EmotionUrl(this.assetsPath + 'happy.png', this.assetsPath + 'happy-active.png');
   private negative = new EmotionUrl(this.assetsPath + 'sad.png', this.assetsPath + 'sad-active.png');
   private neutral = new EmotionUrl(this.assetsPath + 'calm.png', this.assetsPath + 'calm-active.png');
+
   public isShow: boolean;
+  public isContentShow: boolean;
+  public isSuccessNotificationShow: boolean;
+  public isAlertNotificationShow: boolean;
+
   private flag: boolean;
   private time: Date;
   private survey: Survey;
 
-  public isPositiveComment: boolean;
   constructor(private surveyService: SurveyService) {
     this.survey = new Survey(0, '', '');
     this.positiveURL = this.positive.getURL();
@@ -33,6 +37,10 @@ export class AppComponent {
 
     this.flag = true;
     this.isShow = false;
+
+    this.isContentShow = surveyService.isContentShow;
+    this.isSuccessNotificationShow = surveyService.isSuccessNotificationShow;
+    this.isAlertNotificationShow = surveyService.isAlertNotificationShow;
   }
 
   public toggleEmotion(emotion: number) {
@@ -44,7 +52,6 @@ export class AppComponent {
         this.neutralURL = this.neutral.getURL();
         this.negativeURL = this.negative.getURL();
         this.flag = true;
-        this.isPositiveComment = true;
       } else {
           this.positiveURL = this.positive.getURL();
       }

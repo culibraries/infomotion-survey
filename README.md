@@ -25,9 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Icon source
 
 https://www.flaticon.com/free-icon/happy_132320
-Active Color: #37B71A
+Active Color: #28A745
 https://www.flaticon.com/free-icon/calm_132319
+Active Color: #FFC107
 https://www.flaticon.com/free-icon/sad_132294
+Active Color: #DC3545
 
 
 ## Further help
