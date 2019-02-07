@@ -2,31 +2,32 @@ import { Injectable } from '@angular/core';
 import { Survey } from '../models/survey';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-
-
+import { env } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
-  private csrfToken : string;
-  constructor(private http:HttpClient,private cookieService: CookieService) { 
+  private csrfToken: string;
+  private url: string;
+  constructor(private http: HttpClient, private cookieService: CookieService) {
     this.csrfToken = this.cookieService.get('csrftoken');
+    this.url = env.apiUrl + '/infomotion/survey/.json';
   }
 
-  createSurvey(survey: Survey)
-  {
-    console.log(survey);
+/**
+ * /POST call to add survey to mongoDb
+ */
+public createSurvey(survey: Survey) {
     return this.http.post(
-      'http://localhost/api/data_store/data/infomotion/survey/.json',
-      survey,
-      { 
-        headers: new HttpHeaders(
-          {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': this.csrfToken  
-          })
-        })
+                          this.url,
+                          survey,
+                          {
+                            headers: new HttpHeaders({
+                                'Content-Type':  'application/json',
+                                'X-CSRFToken': this.csrfToken
+                            })
+                          })
     .subscribe(
       data => console.log(data),
       err => console.log(err),

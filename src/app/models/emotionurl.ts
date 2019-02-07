@@ -2,8 +2,7 @@ export class EmotionUrl {
     url: string;
     urlActive: string;
 
-    constructor(url: string, urlActive: string)
-    {
+    constructor(url: string, urlActive: string) {
         this.url = url;
         this.urlActive = urlActive;
     }
@@ -19,8 +18,7 @@ export class EmotionUrl {
      * name
      */
     public getURLActive() {
-        return this.urlActive;    
-    
+        return this.urlActive;
     }
 
 

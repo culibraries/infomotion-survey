@@ -139,13 +139,10 @@
   /*//////////////////////////////////////////////////////////////////
   [ login ]*/
   
-  .limiter {
-    width: 100%;
-    margin: 0 auto;
-  }
+  
   
   .container-login100 {
-    width: 100%;  
+    width: 100%;
     min-height: 100vh;
     display: -webkit-box;
     display: -webkit-flex;
@@ -155,11 +152,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    
+    background-image: url('../assets/images/background.jpg');
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;;
+    background-repeat: no-repeat;
   }
   
   
