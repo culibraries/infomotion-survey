@@ -76,6 +76,7 @@ export class AppComponent {
     this.isShow = false;
     }
   }
+
   public onSubmit({ value, valid }: { value: Survey; valid: boolean }) {
     this.time = new Date();
     this.survey.comment = value.comment;
