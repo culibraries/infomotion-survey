@@ -1,3 +1,6 @@
-export const environment = {
-  production: true
+export const env = {
+  production: true,
+  baseUrl: '/api',
+  apiUrl: '/api/data_store/data',
+  apiAuthUrl: '/api/api-auth'
 };
