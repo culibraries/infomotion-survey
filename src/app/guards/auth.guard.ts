@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     if (this.auth.isAuthenticated()) {
       return true;
     } else {
-        return false;
+      return false;
     }
   }
 }
