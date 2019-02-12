@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { env } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 const userUrl = env.baseUrl + '/user/?format=json';
 

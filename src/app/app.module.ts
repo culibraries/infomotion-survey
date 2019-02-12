@@ -21,7 +21,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AppRoutingModule,
     FormsModule,
     HttpClientModule
-
     ],
   providers: [CookieService],
   bootstrap: [AppComponent]
