@@ -8,15 +8,16 @@
       </div>
       <span> <p style="font-size: 30px" class="p-t-30">Report</p> </span>
 
-      <form style="padding-top: 50px;" novalidate #downloadForm="ngForm" (ngSubmit) = "onSubmit(downloadForm)">
         <div class="form-group row">
           <label for="date-range" class="col-sm-2 col-form-label" style="font-weight:unset">Range</label>
           <div class="col-sm-10">
+              <i class="fa fa-user-circle-o"></i>
               <input type="text"
               id="date-range"
               name="date-range"
               class="form-control"
-              [(ngModel)]="date-range"
+               [(ngModel)]="dateValue"
+               (ngModelChange)="onChange()"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}"
               bsDaterangepicker>
           </div>
@@ -24,11 +25,9 @@
 
         <div class="form-group">
             <div class="float-right">
-              <button type="submit" class="btn btn-submit">Download</button>
+              <a class="btn btn-submit" href={{downloadURL}}>Download</a>
             </div>
           </div>
-       
-      </form>
 
     
     </div>
