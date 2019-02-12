@@ -3,7 +3,7 @@ import { env } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { isNull } from 'util';
 import { AuthService } from 'src/app/services/auth.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',

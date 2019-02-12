@@ -3,6 +3,7 @@ import { EmotionUrl} from '../../models/emotionurl';
 import { Survey } from '../../models/survey';
 import { SurveyService} from '../../services/survey.service';
 import { AuthService } from 'src/app/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -30,13 +31,16 @@ export class HomeComponent {
   private survey: Survey;
   public isAdmin: boolean = false;
 
-  constructor(public surveyService: SurveyService, private authService: AuthService) {
+  constructor(private router: Router, public surveyService: SurveyService, private authService: AuthService) {
     this.survey = new Survey('', '', '');
     this.positiveURL = this.positive.getURL();
     this.neutralURL = this.neutral.getURL();
     this.negativeURL = this.negative.getURL();
     this.authService.getUserInformation().subscribe(
       (data: any) => {
+        if (data['groups'].indexOf('infomotion-admin') === -1 && data['groups'].indexOf('infomotion-user') === -1) {
+          this.router.navigate(['401']);
+        }
         if (data['groups'].indexOf('infomotion-admin') !== -1) {
             this.isAdmin = true;
         }
