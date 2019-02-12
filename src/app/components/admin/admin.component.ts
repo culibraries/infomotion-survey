@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { env } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { isNull } from 'util';
-
+import { AuthService } from 'src/app/services/auth.service';
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -15,7 +16,13 @@ export class AdminComponent {
   public downloadURL: string = '';
   public dateValue: any[];
 
-  constructor(private http: HttpClient)  {
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService)  {
+    this.authService.getUserInformation().subscribe(
+      (data: any) => {
+        if (data['groups'].indexOf('infomotion-admin') === -1) {
+          this.router.navigate(['401']);
+        }
+      });
     this.downloadURL = env.apiUrl + '/infomotion/survey/?query={"projection":{"_id":0}}&format=csv';
   }
 

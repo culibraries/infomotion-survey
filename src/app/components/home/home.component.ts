@@ -28,9 +28,9 @@ export class HomeComponent {
   private flag: boolean = true;
   private time: Date;
   private survey: Survey;
-  private isAdmin: boolean = false;
+  public isAdmin: boolean = false;
 
-  constructor(private surveyService: SurveyService, private authService: AuthService) {
+  constructor(public surveyService: SurveyService, private authService: AuthService) {
     this.survey = new Survey('', '', '');
     this.positiveURL = this.positive.getURL();
     this.neutralURL = this.neutral.getURL();

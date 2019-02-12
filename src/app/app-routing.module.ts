@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,14 @@ const routes: Routes = [
     component: AdminComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard]
+  },
+  {
+    path: '401',
+    component: ErrorComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   }
+
 ];
 
 @NgModule({
