@@ -91,7 +91,7 @@ export class HomeComponent {
     }
   }
 
-  public onSubmit({ value, valid }: { value: Survey; valid: boolean }) {
+  public onSubmit({ value }: { value: Survey; }) {
     this.time = new Date();
     this.survey.comment = value.comment;
     this.survey.created_date = this.time.toISOString().substring(0, 10);
