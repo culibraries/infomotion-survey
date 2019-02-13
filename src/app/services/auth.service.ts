@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { env } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 const userUrl = env.baseUrl + '/user/?format=json';
 
@@ -10,20 +10,25 @@ const userUrl = env.baseUrl + '/user/?format=json';
 
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * isAuthenticated()
    */
   public isAuthenticated() {
     return this.http.get(userUrl).subscribe(
-      data => console.log(data),
+      data => void 0,
       err => this.login(),
-      () => console.log('Request Complete')
+      () => void 0
     );
   }
 
-  private login() {
+  public getUserInformation() {
+    return this.http.get(userUrl);
+  }
+
+  public login() {
     return window.location.href = env.apiAuthUrl + '/login/?next=/infomotion';
   }
 
