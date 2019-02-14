@@ -5,6 +5,7 @@ InfoMotion staff would like cart-mounted mobile device (simple tablet) to captur
 ## Installing
 
 `npm install`
+
 `ng serve -o`
 
 ## Prerequisites
