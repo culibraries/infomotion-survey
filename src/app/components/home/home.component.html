@@ -7,17 +7,17 @@
         <a href="#"><img src="assets/images/culib-logo.png" height="60px"/></a>
       </div>
 
-      <div class="p-t-50" *ngIf = "surveyService.isSuccessNotificationShow">
+      <div class="p-t-50" *ngIf = "isSuccessNotificationShow">
         <img src="./assets/images/checked.png" width="" />
         <p style="font-size:30px" class="p-t-30">Thank You!</p>
         <p style="font-size: 20px; ">Your feedback has been successfully submitted.</p>
       </div>
-      <div class="p-t-50" *ngIf = "surveyService.isAlertNotificationShow">
+      <div class="p-t-50" *ngIf = "isAlertNotificationShow">
           <img src="./assets/images/alert.png" width="" />
           <p style="font-size:30px" class="p-t-30">Oop!</p>
           <p style="font-size: 20px; ">Something went wrong. Please referesh the app or reach out to LIT for further information.</p>
         </div>
-      <div *ngIf = "surveyService.isContentShow" >
+      <div *ngIf = "isContentShow" >
       <span> <p style="font-size: 30px" class="p-t-30">How was your experience ?</p> </span>
       <div class="p-t-30 p-b-33">
           <button (click)="toggleEmotion('positive')"><img class="emotion-icon" id="positive-icon" [src]="positiveURL"/></button>
@@ -40,10 +40,10 @@
   </div>
 </div>
 
-<a *ngIf="isAdmin" routerLink="/admin" style="position: absolute;bottom: 9px; left: 60px;">  
+<a *ngIf="isAdmin" routerLink="/admin" class="admin-icon">  
   <img src="assets/images/admin.png" width="43px" style="margin: 15px">
 </a>
-<a href="/api/api-auth/logout/?next=/api/api-auth/login/?next=/infomotion" style="position: absolute;bottom: 10px">
+<a href="/api/api-auth/logout/?next=/api/api-auth/login/?next=/infomotion" class="logout-icon">
   <img src="assets/images/logout.png" width="40px" style="margin: 15px">
 </a>
 
