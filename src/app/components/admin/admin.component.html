@@ -1,6 +1,5 @@
 <div class="container-custom" >
   <div class="wrapper p-l-70 p-r-70 p-t-30 p-b-33">
-    
     <div class="text-center">
       <div>
         <a href="#"><img src="assets/images/info-logo.png" height="42px"/></a>
@@ -8,28 +7,37 @@
       </div>
       <span> <p style="font-size: 30px" class="p-t-30">Report</p> </span>
 
-      <form style="padding-top: 50px;" novalidate #downloadForm="ngForm" (ngSubmit) = "onSubmit(downloadForm)">
-        <div class="form-group row">
-          <label for="date-range" class="col-sm-2 col-form-label">Range</label>
-          <div class="col-sm-10">
-              <input type="text"
-              id="date-range"
-              name="date-range"
-              class="form-control"
-              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}"
-              bsDaterangepicker>
-          </div>
-        </div>
+          <form class="p-t-30" novalidate #downloadForm="ngForm" (ngSubmit) = "onSubmit(downloadForm)">
+              <div class="form-group row" style="margin-right: -15px;">
+                <label for="date-range" class="col-sm-2 col-form-label">Range</label>
+                <div class="col-sm-9" style="margin-right: -15px;">
+                    <input type="text"
+                    id="date-range"
+                    name="date-range"
+                    class="form-control"
+                    #drp="bsDaterangepicker"
+                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}"
+                    bsDaterangepicker
+                    [(ngModel)]="value">
+                </div>
+                <div class="col-md-1" style="margin-top: -3px">
+                  <a href="javascript:;" (click)="drp.toggle()">                  
+                    <img src="assets/images/calendar.png" width="40px" />
+                  </a>  
+                </div>
+              </div>
+      
+              <div class="form-group">
+                  <div class="float-right">
+                    <button type="submit" class="btn btn-submit">Download</button>
+                  </div>
+              </div>
+          </form>
 
-        <div class="form-group">
-            <div class="float-right">
-              <button type="submit" class="btn btn-submit">Download</button>
-            </div>
-          </div>
-      </form>
+    
     </div>
-</div>
   </div>
+</div>
 
 
 <a routerLink="/" class="home-icon">  
