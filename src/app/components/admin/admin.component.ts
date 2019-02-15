@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import {Router} from '@angular/router';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { isUndefined } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
@@ -21,6 +22,7 @@ export class AdminComponent {
   private from: string = '';
   private to: string = '';
   private queryUrl: string;
+  public value: Date[];
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService)  {
     this.authService.getUserInformation().subscribe(
@@ -29,27 +31,35 @@ export class AdminComponent {
           this.router.navigate(['401']);
         }
       });
+
+    this.value = [];
   }
 
-  public onSubmit({ value }: { value: string }) {
-
-    if (!value['date-range'] || isNull(value['date-range']) || isNull(value['date-range'][0]) || isNull(value['date-range'][1])) {
-      this.queryUrl = baseURL + '?query={"projection":{"_id":0}}&format=json';
+  public onSubmit() {
+    if (this.isUndefined(this.value) || this.isUndefined(this.value[0]) || this.isUndefined(this.value[1])) {
+      this.queryUrl = baseURL + '?query={"projection":{"_id":0}}&page_size=0&format=json';
       this.getNumberOfRecords(this.queryUrl);
       return false;
     }
-    this.from = value['date-range'][0].toISOString().substring(0, 10);
-    this.to = value['date-range'][1].toISOString().substring(0, 10);
+    this.from = this.value[0].toISOString().substring(0, 10);
+    this.to = this.value[1].toISOString().substring(0, 10);
 
     if (this.from === this.to) {
-      this.queryUrl = baseURL + '?query={"filter":{"created_date":"' + this.from + '"},"projection":{"_id":0}}&format=json';
+      this.queryUrl = baseURL + '?query={"filter":{"created_date":"' + this.from + '"},"projection":{"_id":0}}&page_size=0&format=json';
     } else {
       this.queryUrl = baseURL + '?query={"filter":{"created_date":' +
                       '{"$gte":"' + this.from +
                       '","$lte":"' + this.to +
-                      '"}},"projection":{"_id":0}}&format=json';
+                      '"}},"projection":{"_id":0}}&page_size=0&format=json';
     }
     this.getNumberOfRecords(this.queryUrl);
+  }
+
+  private isUndefined(value: any): boolean {
+    if (!value || isNull(value)) {
+      return true;
+    }
+    return false;
   }
 
   private getNumberOfRecords(query: string) {
@@ -57,8 +67,11 @@ export class AdminComponent {
       data => {
           if (data['count'] === 0) { alert('There is no record found');
           } else {
-            alert('There are ' + data['count'] + ' records found. Click OK to generate the report.');
-            this.exportAsExcelFile(data['results'], 'InfoMotion_Report_');
+            if (confirm('There are ' + data['count'] + ' records found. Click OK to generate the report.')) {
+              this.exportAsExcelFile(data['results'], 'InfoMotion_Report_'); 
+            } else {
+              return false;
+            }
           }
             }
     );
