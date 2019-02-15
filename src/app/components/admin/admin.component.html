@@ -8,41 +8,36 @@
       </div>
       <span> <p style="font-size: 30px" class="p-t-30">Report</p> </span>
 
-        <div class="row p-t-30">
-          <label for="date-range" class="col-sm-2 col-form-label" style="font-weight:unset">Date</label>
-          <div class="col-md-9" style="margin-right: -15px;">
+      <form style="padding-top: 50px;" novalidate #downloadForm="ngForm" (ngSubmit) = "onSubmit(downloadForm)">
+        <div class="form-group row">
+          <label for="date-range" class="col-sm-2 col-form-label">Range</label>
+          <div class="col-sm-10">
               <input type="text"
               id="date-range"
               name="date-range"
               class="form-control"
-               [(ngModel)]="dateValue"
-               (ngModelChange)="onChange()"
+              [(ngModel)]="date-range"
               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}"
               bsDaterangepicker>
           </div>
-          <div class="col-md-0" style="margin-top: -3px">
-              <img src="assets/images/calendar.png" width="40px" />
-          </div>
-
-
         </div>
 
-        <div class="form-group" style="padding-top:40px; padding-right: 13px;">
+        <div class="form-group">
             <div class="float-right">
-              <a class="btn btn-submit" href={{downloadURL}} target="_self">Download</a>
+              <button type="submit" class="btn btn-submit">Download</button>
             </div>
           </div>
-
-    
+      </form>
     </div>
 </div>
   </div>
 
 
-<a routerLink="/" style="position: absolute;bottom: 10px;left: 60px;">  
+<a routerLink="/" class="home-icon">  
     <img src="assets/images/homepage.png" width="43px" style="margin: 15px">
 </a>
-<a href="/api/api-auth/logout/?next=/api/api-auth/login/?next=/infomotion" style="position: absolute;bottom: 10px; ">
+
+<a href="/api/api-auth/logout/?next=/api/api-auth/login/?next=/infomotion" class="logout-icon">
   <img src="assets/images/logout.png" width="40px" style="margin: 15px">
 </a>
 

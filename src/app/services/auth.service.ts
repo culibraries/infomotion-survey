@@ -15,11 +15,14 @@ export class AuthService {
 
   /**
    * isAuthenticated()
+   * TODO : This is not really a perfect way to handle authentication. This function suppose to return a boolean value
+   * which is : TRUE -> is authenticated, FALSE -> is not authenticated.
+   * In order to do that, the backend need to response 401 code -> unauthozied (FALSE) , 200 code -> success (TRUE)
    */
   public isAuthenticated() {
     return this.http.get(userUrl).subscribe(
       data => void 0,
-      err => this.login(),
+      err => this.login(), // This will redirect to the system login page
       () => void 0
     );
   }
@@ -32,9 +35,6 @@ export class AuthService {
     return window.location.href = env.apiAuthUrl + '/login/?next=/infomotion';
   }
 
-  /**
-   * logout
-   */
   public logout() {
     return window.location.href = env.apiAuthUrl + '/logout/?next=' + env.apiAuthUrl + '/login/?next=/infomotion';
 

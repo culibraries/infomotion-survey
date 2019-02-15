@@ -11,12 +11,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   public positiveURL: string;
   public neutralURL: string;
   public negativeURL: string;
-  private assetsPath = 'assets/images/emotion/';
+  private assetsPath: string = 'assets/images/emotion/';
 
   private positive = new EmotionUrl(this.assetsPath + 'happy.png', this.assetsPath + 'happy-active.png');
   private negative = new EmotionUrl(this.assetsPath + 'sad.png', this.assetsPath + 'sad-active.png');
@@ -31,11 +31,12 @@ export class HomeComponent {
   private survey: Survey;
   public isAdmin: boolean = false;
 
-  constructor(private router: Router, public surveyService: SurveyService, private authService: AuthService) {
+  constructor(private router: Router, private _surveyService: SurveyService, private authService: AuthService) {
     this.survey = new Survey('', '', '');
     this.positiveURL = this.positive.getURL();
     this.neutralURL = this.neutral.getURL();
     this.negativeURL = this.negative.getURL();
+
     this.authService.getUserInformation().subscribe(
       (data: any) => {
         if (data['groups'].indexOf('infomotion-admin') === -1 && data['groups'].indexOf('infomotion-user') === -1) {
@@ -45,11 +46,18 @@ export class HomeComponent {
             this.isAdmin = true;
         }
       });
-    this.isContentShow = surveyService.isContentShow;
-    this.isSuccessNotificationShow = surveyService.isSuccessNotificationShow;
-    this.isAlertNotificationShow = surveyService.isAlertNotificationShow;
   }
 
+  ngOnInit() {
+    this._surveyService.getIsContentShow().subscribe(data => this.isContentShow = data);
+    this._surveyService.getIsSuccessNotificationShow().subscribe(data => this.isSuccessNotificationShow = data);
+    this._surveyService.getIsAlertNotificationShow().subscribe(data => this.isAlertNotificationShow = data);
+  }
+
+
+  /**
+   * Toggle the emotion icon
+   */
   public toggleEmotion(emotion: string) {
     this.flag = false;
     this.survey.response = emotion;
@@ -83,19 +91,25 @@ export class HomeComponent {
         this.neutralURL = this.neutral.getURL();
       }
     }
+    this.checkCommentBoxShow(this.flag);
+  }
 
-    if (this.flag) {
+  /**
+   * Toggle the comment box base on click action to each icon
+   */
+  private checkCommentBoxShow(flag: boolean): void {
+    if (flag) {
       this.isShow = true;
     } else {
     this.isShow = false;
     }
   }
 
-  public onSubmit({ value, valid }: { value: Survey; valid: boolean }) {
+  public onSubmit({ value }: { value: Survey; }) {
     this.time = new Date();
     this.survey.comment = value.comment;
     this.survey.created_date = this.time.toISOString().substring(0, 10);
-    this.surveyService.createSurvey(this.survey);
+    this._surveyService.createSurvey(this.survey);
   }
 
 }
