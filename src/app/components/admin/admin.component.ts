@@ -68,7 +68,7 @@ export class AdminComponent {
           if (data['count'] === 0) { alert('There is no record found');
           } else {
             if (confirm('There are ' + data['count'] + ' records found. Click OK to generate the report.')) {
-              this.exportAsExcelFile(data['results'], 'InfoMotion_Report_'); 
+              this.exportAsExcelFile(data['results'], 'InfoMotion_Report_');
             } else {
               return false;
             }
