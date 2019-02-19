@@ -6,13 +6,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import {Router} from '@angular/router';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { isUndefined } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 const EXCEL_EXTENSION = '.xlsx';
 
 const baseURL = env.apiUrl + '/infomotion/survey';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -21,7 +21,7 @@ const baseURL = env.apiUrl + '/infomotion/survey';
 export class AdminComponent {
   private from: string = '';
   private to: string = '';
-  private queryUrl: string;
+  private queryUrl: string = '';
   public value: Date[];
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService)  {
@@ -39,8 +39,9 @@ export class AdminComponent {
     if (this.isUndefined(this.value) || this.isUndefined(this.value[0]) || this.isUndefined(this.value[1])) {
       this.queryUrl = baseURL + '?query={"projection":{"_id":0}}&page_size=0&format=json';
       this.getNumberOfRecords(this.queryUrl);
-      return false;
+      return true;
     }
+
     this.from = this.value[0].toISOString().substring(0, 10);
     this.to = this.value[1].toISOString().substring(0, 10);
 
@@ -52,7 +53,7 @@ export class AdminComponent {
                       '","$lte":"' + this.to +
                       '"}},"projection":{"_id":0}}&page_size=0&format=json';
     }
-    this.getNumberOfRecords(this.queryUrl);
+    return this.getNumberOfRecords(this.queryUrl);
   }
 
   private isUndefined(value: any): boolean {
@@ -65,15 +66,16 @@ export class AdminComponent {
   private getNumberOfRecords(query: string) {
     return this.http.get(this.queryUrl).subscribe(
       data => {
-          if (data['count'] === 0) { alert('There is no record found');
+        if (data['count'] === 0) {
+          alert('There is no record found');
+        } else {
+          if (confirm('There are ' + data['count'] + ' records found. Click OK to generate the report.')) {
+            this.exportAsExcelFile(data['results'], 'InfoMotion_Report_');
           } else {
-            if (confirm('There are ' + data['count'] + ' records found. Click OK to generate the report.')) {
-              this.exportAsExcelFile(data['results'], 'InfoMotion_Report_');
-            } else {
-              return false;
-            }
+            return false;
           }
-            }
+        }
+      }
     );
   }
 

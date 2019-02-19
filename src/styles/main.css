@@ -82,12 +82,12 @@
   .home-icon {
     position: absolute;
     bottom: 10px;
-    left: 60px;
+    left: 50px;
   }
   .admin-icon {
     position: absolute;
-    bottom: 9px; 
-    left: 60px;
+    bottom: 8px; 
+    left: 105px;
   }
   .logout-icon {
     position: absolute;

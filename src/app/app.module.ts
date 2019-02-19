@@ -8,12 +8,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { AdminComponent } from './components/admin/admin.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ErrorComponent } from './components/error/error.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
-    ErrorComponent
+    ErrorComponent,
+    HomeComponent
   ],
   imports: [
     BsDatepickerModule.forRoot(),
