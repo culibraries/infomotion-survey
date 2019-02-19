@@ -1,59 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { EmotionUrl} from '../../models/emotionurl';
+import { Component, Input } from '@angular/core';
+import { EmotionUrl } from '../../models/emotionurl';
 import { Survey } from '../../models/survey';
-import { SurveyService} from '../../services/survey.service';
 import { AuthService } from 'src/app/services/auth.service';
-import {Router} from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { env } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const url = env.apiUrl + '/infomotion/survey/.json';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-
-export class HomeComponent implements OnInit {
-
+export class HomeComponent {
   public positiveURL: string;
   public neutralURL: string;
   public negativeURL: string;
-  private assetsPath: string = 'assets/images/emotion/';
 
-  private positive = new EmotionUrl(this.assetsPath + 'happy.png', this.assetsPath + 'happy-active.png');
-  private negative = new EmotionUrl(this.assetsPath + 'sad.png', this.assetsPath + 'sad-active.png');
-  private neutral = new EmotionUrl(this.assetsPath + 'calm.png', this.assetsPath + 'calm-active.png');
+  private positive = new EmotionUrl('happy.png', 'happy-active.png');
+  private negative = new EmotionUrl('sad.png', 'sad-active.png');
+  private neutral = new EmotionUrl('calm.png', 'calm-active.png');
 
   public isShow: boolean = false;
-  public isContentShow: boolean;
-  public isSuccessNotificationShow: boolean;
-  public isAlertNotificationShow: boolean;
+  public isContentShow: boolean = true;
   private flag: boolean = true;
   private time: Date;
-  private survey: Survey;
-  public isAdmin: boolean = false;
+  private survey: Survey = new Survey('', '', '', '');
+  private csrfToken: string = '';
+  public isEnableAlert: boolean = false;
+  public alert: any = {};
 
-  constructor(private router: Router, private _surveyService: SurveyService, private authService: AuthService) {
-    this.survey = new Survey('', '', '');
-    this.positiveURL = this.positive.getURL();
-    this.neutralURL = this.neutral.getURL();
-    this.negativeURL = this.negative.getURL();
-
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private authService: AuthService) {
     this.authService.getUserInformation().subscribe(
       (data: any) => {
         if (data['groups'].indexOf('infomotion-admin') === -1 && data['groups'].indexOf('infomotion-user') === -1) {
           this.router.navigate(['401']);
         }
-        if (data['groups'].indexOf('infomotion-admin') !== -1) {
-            this.isAdmin = true;
-        }
       });
+    this.positiveURL = this.positive.getURL();
+    this.neutralURL = this.neutral.getURL();
+    this.negativeURL = this.negative.getURL();
+    this.csrfToken = this.cookieService.get('csrftoken');
   }
-
-  ngOnInit() {
-    this._surveyService.getIsContentShow().subscribe(data => this.isContentShow = data);
-    this._surveyService.getIsSuccessNotificationShow().subscribe(data => this.isSuccessNotificationShow = data);
-    this._surveyService.getIsAlertNotificationShow().subscribe(data => this.isAlertNotificationShow = data);
-  }
-
 
   /**
    * Toggle the emotion icon
@@ -68,7 +58,7 @@ export class HomeComponent implements OnInit {
         this.negativeURL = this.negative.getURL();
         this.flag = true;
       } else {
-          this.positiveURL = this.positive.getURL();
+        this.positiveURL = this.positive.getURL();
       }
     }
     if (emotion === 'negative') {
@@ -101,7 +91,7 @@ export class HomeComponent implements OnInit {
     if (flag) {
       this.isShow = true;
     } else {
-    this.isShow = false;
+      this.isShow = false;
     }
   }
 
@@ -109,7 +99,52 @@ export class HomeComponent implements OnInit {
     this.time = new Date();
     this.survey.comment = value.comment;
     this.survey.created_date = this.time.toISOString().substring(0, 10);
-    this._surveyService.createSurvey(this.survey);
+    this.survey.timestamp = this.time.toLocaleTimeString();
+    this.createSurvey(this.survey);
   }
 
+  private createSurvey(survey: Survey) {
+    try {
+      this.http.post(url, survey,
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-CSRFToken': this.csrfToken
+          })
+        })
+        .subscribe(
+          data => this.showAlert('success'),
+          err => this.showAlert('fail'),
+          () => console.log('Request Complete')
+        );
+      window.setTimeout(function () { location.reload(); }, env.delayTime);
+      return true;
+    } catch {
+      this.showAlert('fail');
+    }
+  }
+
+  private showAlert(type: string) {
+    this.isContentShow = false;
+    this.isEnableAlert = true;
+    switch (type) {
+      case 'success':
+        this.alert = {
+          'title': 'Thank You!',
+          'message': 'Your feedback has been successfully submitted.',
+          'src': 'checked.png'
+        };
+        break;
+      case 'fail':
+        this.alert = {
+          'title': 'Oop!',
+          'message': 'Something went wrong. Please referesh the app or reach out to LIT for further information.',
+          'src': 'alert.png'
+        };
+        break;
+      default:
+    }
+    return this.alert;
+
+  }
 }

@@ -1,113 +1,101 @@
-
 @font-face {
   font-family: HelveticaNeue;
-  src: url('../assets/fonts/HelveticaNeue-Black.woff'); 
+  src: url('../assets/fonts/HelveticaNeue-Black.woff');
 }
-  
-  * {
-      margin: 0px; 
-      padding: 0px; 
-      box-sizing: border-box;
-  }
-  
-  body, html {
-      height: 100%;
-      font-family: HelveticaNeue, sans-serif;
-  }
-  
-  
-  p {
-      font-family: HelveticaNeue;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #000000;
-      margin: 0px;
-  }
-  
-  /*---------------------------------------------*/
-  button {
-      outline: none !important;
-      border: none;
-      background: transparent;
-  }
-  
-  button:hover {
-      cursor: pointer;
-  }
-
-  .btn-submit {
-    color: black; 
-    background-color: #CFB87C;
-  }
-
-  .comment-box {
-    border-color: #A6A6A6;
-    outline: none;
-  }
-  .comment-box:focus {
-    border: #A6A6A6 solid 2px;
-  }
-  .container-custom {
-    width: 100%;
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../assets/images/background.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  
-  
-  .wrapper {
-    width: 780px;
-    background: #fff;
-    border-radius: 10px;
-    position: absolute;
-    top: 50px;
-    height: auto;
-  }
-  
-  .emotion-icon {
-    height: 100px;
-    width: 100px;
-    margin-left: 30px;
-  }
-  .home-icon {
-    position: absolute;
-    bottom: 10px;
-    left: 60px;
-  }
-  .admin-icon {
-    position: absolute;
-    bottom: 9px; 
-    left: 60px;
-  }
-  .logout-icon {
-    position: absolute;
-    bottom: 10px;
-  }
-  
-  /*//////////////////////////////////////////////////////////////////
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body,
+html {
+  height: 100%;
+  font-family: HelveticaNeue, sans-serif;
+}
+p {
+  font-family: HelveticaNeue;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #000000;
+  margin: 0px;
+}
+/*---------------------------------------------*/
+button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+button:hover {
+  cursor: pointer;
+}
+.btn-submit {
+  color: black;
+  background-color: #CFB87C;
+}
+.comment-box {
+  border-color: #A6A6A6;
+  outline: none;
+}
+.comment-box:focus {
+  border: #A6A6A6 solid 2px;
+}
+.container-custom {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../assets/images/background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.wrapper {
+  width: 780px;
+  background: #fff;
+  border-radius: 10px;
+  position: absolute;
+  top: 50px;
+  height: auto;
+}
+.emotion-icon {
+  height: 100px;
+  width: 100px;
+  margin-left: 30px;
+}
+.home-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
+}
+.admin-icon {
+  position: absolute;
+  bottom: 8px;
+  left: 105px;
+}
+.logout-icon {
+  position: absolute;
+  bottom: 10px;
+}
+/*//////////////////////////////////////////////////////////////////
   [ Responsive ]*/
-  @media (max-width: 768px) {
-    .wrapper {
-      padding-left: 60px;
-      padding-right: 60px;
-      width: 700px;
-    }
-  
-  @media (max-width: 576px) {
-    .wrapper {
-      padding-left: 15px;
-      padding-right: 15px;
-      width: 700px;
-    }
+@media (max-width: 768px) {
+  .wrapper {
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 700px;
+  }
+
+@media (max-width: 576px) {
+  .wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 700px;
+  }
   }
 }
