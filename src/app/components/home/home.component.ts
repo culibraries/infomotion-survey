@@ -35,7 +35,8 @@ export class HomeComponent {
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private authService: AuthService) {
     this.authService.getUserInformation().subscribe(
       (data: any) => {
-        if (data['groups'].indexOf('infomotion-admin') === -1 && data['groups'].indexOf('infomotion-user') === -1) {
+        console.log(data);
+        if (!this.isInfoUser(data['groups'])) {
           this.router.navigate(['401']);
         }
       });
@@ -43,6 +44,13 @@ export class HomeComponent {
     this.neutralURL = this.neutral.getURL();
     this.negativeURL = this.negative.getURL();
     this.csrfToken = this.cookieService.get('csrftoken');
+  }
+
+  private isInfoUser(data: any[]): boolean {
+    if (data.indexOf('infomotion-admin') === -1 && data.indexOf('infomotion-user') === -1) {
+      return false;
+    }
+      return true;
   }
 
   /**
@@ -145,6 +153,5 @@ export class HomeComponent {
       default:
     }
     return this.alert;
-
   }
 }

@@ -1,12 +1,41 @@
-import { TestBed } from '@angular/core/testing';
-
+import { TestBed, inject } from '@angular/core/testing';
 import { AuthService } from './auth.service';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 describe('AuthService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let authService: AuthService;
+  let httpMock: HttpTestingController;
 
-  // it('should be created', () => {
-  //   const service: AuthService = TestBed.get(AuthService);
-  //   expect(service).toBeTruthy();
-  // });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [AuthService]
+    });
+    authService = TestBed.get(AuthService);
+    httpMock = TestBed.get(HttpTestingController);
+  });
+
+  it('Should get user information', done => {
+    const mockUsers = {
+      'auth-token': 'random string',
+      'email': 'test@test.com',
+      'group': ['infomotion-user'],
+      'last_name': 'test',
+      'name': 'test test',
+      'username': 'test'
+    };
+    authService.getUserInformation().subscribe((data: any) => {
+      expect(data).toEqual(mockUsers);
+    });
+
+    const userRequest = httpMock.expectOne('/users');
+    console.log(userRequest.request.url);
+    // expect(userRequest.request.responseType).toEqual('json');
+    // userRequest.flush(mockUsers);
+    // httpMock.verify();
+  });
 });
