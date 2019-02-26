@@ -22,14 +22,13 @@ export class HomeComponent {
   isContentShow: boolean = true;
   alert: any = {};
   isEnableAlert: boolean = false;
-
+  survey: Survey = new Survey('', '', '', '');
   private positive = new EmotionUrl('happy.png', 'happy-active.png');
   private negative = new EmotionUrl('sad.png', 'sad-active.png');
   private neutral = new EmotionUrl('calm.png', 'calm-active.png');
 
   private flag: boolean = true;
   private time: Date;
-  private survey: Survey = new Survey('', '', '', '');
   private csrfToken: string = '';
 
   constructor(
