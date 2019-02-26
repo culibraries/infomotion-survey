@@ -4,9 +4,13 @@ InfoMotion staff would like cart-mounted mobile device (simple tablet) to captur
 
 ## Installing
 
-`npm install`
+```
+git clone git@github.com:culibraries/infomotion-survey.git infomotion
 
-`ng serve -o`
+npm install
+
+ng serve -o
+```
 
 ## Prerequisites
 
@@ -14,9 +18,11 @@ You will need to have an account in order to login to the app. Contact to LIT CU
 
 ## Build
 
-`ng build --output-path="[full-path]/cybercom/data/static/infomotion" --base-href "/infomotion/"`. It will build the dev version to cybercomm local.
+Local:
+`ng build --output-path="[full-path]/cybercom/data/static/infomotion" --base-href "/infomotion/"`.
 
-`ng build --prod --output-path="" --base-href "/infomotion/"`. The production built.
+Production
+`ng build --prod --output-path="" --base-href "/infomotion/"`.
 
 ## Icon source
 
