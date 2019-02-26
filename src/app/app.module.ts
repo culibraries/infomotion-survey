@@ -11,20 +11,15 @@ import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AdminComponent,
-    ErrorComponent,
-    HomeComponent
-  ],
+  declarations: [AppComponent, AdminComponent, ErrorComponent, HomeComponent],
   imports: [
     BsDatepickerModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule
-    ],
+  ],
   providers: [CookieService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

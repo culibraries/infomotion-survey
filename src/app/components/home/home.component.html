@@ -16,8 +16,9 @@
   <form *ngIf="isShow" novalidate #surveyForm="ngForm" (ngSubmit)="onSubmit(surveyForm)">
     <div class="form-group">
       <p class="p-t-30 p-b-33 text-center" style="font-size: 30px">Any additional comments</p>
-      <textarea class="form-control comment-box" rows="5" maxlength="250" name="comment" [(ngModel)]="survey.comment" #commentBox></textarea>
-      <p style="text-align: left; color: #A6A6A6; font-size: 13px;">( {{250 - commentBox.value.length}} characters remaining )</p>
+      <textarea class="form-control comment-box" rows="5" maxlength="250" name="comment" #commentBox></textarea>
+      <p style="text-align: left; color: #A6A6A6; font-size: 13px;">( {{250 - commentBox.value.length}} characters
+        remaining )</p>
     </div>
     <div class="form-group text-right">
       <button type="submit" class="btn btn-submit">Submit</button>

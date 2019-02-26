@@ -8,12 +8,11 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   public isAdmin: boolean = false;
-  constructor (private authService: AuthService) {
-    this.authService.getUserInformation().subscribe(
-      (data: any) => {
-        if (data['groups'].indexOf('infomotion-admin') !== -1) {
-          this.isAdmin = true;
-        }
-      });
+  constructor(private authService: AuthService) {
+    this.authService.getUserInformation().subscribe((data: any) => {
+      if (data['groups'].indexOf('infomotion-admin') !== -1) {
+        this.isAdmin = true;
+      }
+    });
   }
 }

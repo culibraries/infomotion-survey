@@ -15,34 +15,48 @@ const url = env.apiUrl + '/infomotion/survey/.json';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  public positiveURL: string;
-  public neutralURL: string;
-  public negativeURL: string;
+  positiveURL: string;
+  neutralURL: string;
+  negativeURL: string;
+  isShow: boolean = false;
+  isContentShow: boolean = true;
+  alert: any = {};
+  isEnableAlert: boolean = false;
 
   private positive = new EmotionUrl('happy.png', 'happy-active.png');
   private negative = new EmotionUrl('sad.png', 'sad-active.png');
   private neutral = new EmotionUrl('calm.png', 'calm-active.png');
 
-  public isShow: boolean = false;
-  public isContentShow: boolean = true;
   private flag: boolean = true;
   private time: Date;
   private survey: Survey = new Survey('', '', '', '');
   private csrfToken: string = '';
-  public isEnableAlert: boolean = false;
-  public alert: any = {};
 
-  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService, private authService: AuthService) {
-    this.authService.getUserInformation().subscribe(
-      (data: any) => {
-        if (data['groups'].indexOf('infomotion-admin') === -1 && data['groups'].indexOf('infomotion-user') === -1) {
-          this.router.navigate(['401']);
-        }
-      });
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService,
+    private authService: AuthService
+  ) {
+    this.authService.getUserInformation().subscribe((data: any) => {
+      if (!this.isInfoUser(data['groups'])) {
+        this.router.navigate(['401']);
+      }
+    });
     this.positiveURL = this.positive.getURL();
     this.neutralURL = this.neutral.getURL();
     this.negativeURL = this.negative.getURL();
     this.csrfToken = this.cookieService.get('csrftoken');
+  }
+
+  private isInfoUser(data: any[]): boolean {
+    if (
+      data.indexOf('infomotion-admin') === -1 &&
+      data.indexOf('infomotion-user') === -1
+    ) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -84,6 +98,13 @@ export class HomeComponent {
     this.checkCommentBoxShow(this.flag);
   }
 
+  public onSubmit({ value }: { value: Survey }) {
+    this.time = new Date();
+    this.survey.comment = value.comment;
+    this.survey.created_date = this.time.toISOString().substring(0, 10);
+    this.survey.timestamp = this.time.toLocaleTimeString();
+    this.createSurvey(this.survey);
+  }
   /**
    * Toggle the comment box base on click action to each icon
    */
@@ -95,18 +116,10 @@ export class HomeComponent {
     }
   }
 
-  public onSubmit({ value }: { value: Survey; }) {
-    this.time = new Date();
-    this.survey.comment = value.comment;
-    this.survey.created_date = this.time.toISOString().substring(0, 10);
-    this.survey.timestamp = this.time.toLocaleTimeString();
-    this.createSurvey(this.survey);
-  }
-
   private createSurvey(survey: Survey) {
     try {
-      this.http.post(url, survey,
-        {
+      this.http
+        .post(url, survey, {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'X-CSRFToken': this.csrfToken
@@ -117,7 +130,9 @@ export class HomeComponent {
           err => this.showAlert('fail'),
           () => console.log('Request Complete')
         );
-      window.setTimeout(function () { location.reload(); }, env.delayTime);
+      window.setTimeout(function() {
+        location.reload();
+      }, env.delayTime);
       return true;
     } catch {
       this.showAlert('fail');
@@ -130,21 +145,21 @@ export class HomeComponent {
     switch (type) {
       case 'success':
         this.alert = {
-          'title': 'Thank You!',
-          'message': 'Your feedback has been successfully submitted.',
-          'src': 'checked.png'
+          title: 'Thank You!',
+          message: 'Your feedback has been successfully submitted.',
+          src: 'checked.png'
         };
         break;
       case 'fail':
         this.alert = {
-          'title': 'Oop!',
-          'message': 'Something went wrong. Please referesh the app or reach out to LIT for further information.',
-          'src': 'alert.png'
+          title: 'Oop!',
+          message:
+            'Something went wrong. Please referesh the app or reach out to LIT for further information.',
+          src: 'alert.png'
         };
         break;
       default:
     }
     return this.alert;
-
   }
 }

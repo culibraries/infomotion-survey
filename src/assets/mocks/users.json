@@ -1,0 +1,8 @@
+{
+    "auth-token": "random string",
+    "email": "test@test.com",
+    "group": ["infomotion-user"],
+    "last_name": "test",
+    "name": "test test",
+    "username": "test"
+}

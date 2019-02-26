@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full' ,
+    pathMatch: 'full',
     canActivate: [AuthGuard]
   },
   {
@@ -24,11 +24,10 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard]
   }
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
