@@ -38,9 +38,14 @@ Icon Actived Color: #FFC107
 https://www.flaticon.com/free-icon/sad_132294
 Icon Actived Color: #DC3545
 
-## Wiki Page
+## Wiki
 
 https://github.com/culibraries/infomotion-survey/wiki
+
+## TODO
+1. Swtich the authentication method from using Session to Token-based (JWT)
+2. Intergrate with IdentiKey System/Grouper at CU Boulder
+3. CI/CD using Racher to deploy to AWS EC2
 
 ## License
 
