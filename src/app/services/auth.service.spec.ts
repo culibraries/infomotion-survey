@@ -22,18 +22,17 @@ describe('AuthService', () => {
   it('Should get user information', done => {
     const mockUsers = {
       'auth-token': 'random string',
-      'email': 'test@test.com',
-      'group': ['infomotion-user'],
-      'last_name': 'test',
-      'name': 'test test',
-      'username': 'test'
+      email: 'test@test.com',
+      group: ['infomotion-user'],
+      last_name: 'test',
+      name: 'test test',
+      username: 'test'
     };
     authService.getUserInformation().subscribe((data: any) => {
       expect(data).toEqual(mockUsers);
     });
 
     const userRequest = httpMock.expectOne('/users');
-    console.log(userRequest.request.url);
     // expect(userRequest.request.responseType).toEqual('json');
     // userRequest.flush(mockUsers);
     // httpMock.verify();
