@@ -14,17 +14,21 @@ You will need to have an account in order to login to the app. Contact to LIT CU
 
 ## Build
 
-`ng build --output-path="~/cybercom/data/static/infomotion" --base-href "/infomotion/"`. It will build the dev version to cybercomm local.
+`ng build --output-path="[full-path]/cybercom/data/static/infomotion" --base-href "/infomotion/"`. It will build the dev version to cybercomm local.
 
 `ng build --prod --output-path="" --base-href "/infomotion/"`. The production built.
 
 ## Icon source
 
 https://www.flaticon.com/free-icon/happy_132320
-Active Color: #28A745
+Icon Actived Color: #28A745
 
 https://www.flaticon.com/free-icon/calm_132319
-Active Color: #FFC107
+Icon Actived Color: #FFC107
 
 https://www.flaticon.com/free-icon/sad_132294
-Active Color: #DC3545
+Icon Actived Color: #DC3545
+
+## Wiki Page
+
+https://github.com/culibraries/infomotion-survey/wiki
