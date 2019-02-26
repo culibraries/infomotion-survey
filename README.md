@@ -7,8 +7,11 @@ InfoMotion staff would like cart-mounted mobile device (simple tablet) to captur
 ```
 git clone git@github.com:culibraries/infomotion-survey.git infomotion
 
+cd infomotion
+
 npm install
 
+# run at localhost:4200
 ng serve -o
 ```
 
@@ -19,10 +22,10 @@ You will need to have an account in order to login to the app. Contact to LIT CU
 ## Build
 
 Local:
-`ng build --output-path="[full-path]/cybercom/data/static/infomotion" --base-href "/infomotion/"`.
+`ng build --output-path="[path]/cybercom/data/static/infomotion" --base-href "/infomotion/"`.
 
 Production
-`ng build --prod --output-path="" --base-href "/infomotion/"`.
+`ng build --prod --output-path="[path]" --base-href "/infomotion/"`.
 
 ## Icon source
 
