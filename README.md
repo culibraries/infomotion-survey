@@ -38,3 +38,7 @@ Icon Actived Color: #DC3545
 ## Wiki Page
 
 https://github.com/culibraries/infomotion-survey/wiki
+
+## License
+
+Libraries IT - University Of Colorado - Boulder
