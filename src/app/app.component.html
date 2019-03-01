@@ -1,21 +1,23 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container-custom">
+  <div class="wrapper p-l-70 p-r-70 p-t-30 p-b-33">
+    <div class="text-center">
+      <div>
+        <a href="#"><img src="assets/images/info-logo.png" height="42px" /></a>
+        <a href="#"><img src="assets/images/culib-logo.png" height="60px" /></a>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div *ngIf="isAdmin">
+  <a routerLink="/" class="home-icon">
+    <img src="assets/images/homepage.png" width="43px" style="margin: 15px">
+  </a>
+  <a routerLink="/admin" class="admin-icon">
+    <img src="assets/images/admin.png" width="43px" style="margin: 15px">
+  </a>
+</div>
 
-<router-outlet></router-outlet>
+<a href="/api/api-auth/logout/?next=/api/api-auth/login/?next=/infomotion" class="logout-icon">
+  <img src="assets/images/logout.png" width="40px" style="margin: 15px">
+</a>

@@ -1,27 +1,52 @@
 # InfomotionSurvey
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
+InfoMotion staff would like cart-mounted mobile device (simple tablet) to capture service feedback from patrons. The app is implemented by Angular 7. Angular CLI - version 7.2.2.
 
-## Development server
+## Installing
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
+git clone git@github.com:culibraries/infomotion-survey.git infomotion
 
-## Code scaffolding
+cd infomotion
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+npm install
+
+# run at localhost:4200
+ng serve -o
+```
+
+## Prerequisites
+
+You will need to have an account in order to login to the app. Contact to LIT CU Boulder for more information
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Local:
+`ng build --output-path="[path]/cybercom/data/static/infomotion" --base-href "/infomotion/"`.
 
-## Running unit tests
+Production
+`ng build --prod --output-path="[path]" --base-href "/infomotion/"`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Icon source
 
-## Running end-to-end tests
+https://www.flaticon.com/free-icon/happy_132320
+Icon Actived Color: #28A745
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+https://www.flaticon.com/free-icon/calm_132319
+Icon Actived Color: #FFC107
 
-## Further help
+https://www.flaticon.com/free-icon/sad_132294
+Icon Actived Color: #DC3545
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Wiki
+
+https://github.com/culibraries/infomotion-survey/wiki
+
+## TODO
+1. Switch the authentication method from Session to Token-based (JWT)
+2. Intergrate with IdentiKey System/Grouper at CU Boulder
+3. CI/CD using Rancher to deploy to AWS EC2
+
+## License
+
+Libraries IT - University Of Colorado - Boulder
