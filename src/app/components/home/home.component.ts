@@ -1,13 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { EmotionUrl } from '../../models/emotionurl';
 import { Survey } from '../../models/survey';
-import { AuthService } from 'src/app/services/auth.service';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { env } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const url = env.apiUrl + '/infomotion/survey/.json';
+const url = '/data_store/data/infomotion/survey/';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +17,7 @@ export class HomeComponent {
   negativeURL: string;
   isShow: boolean = false;
   isContentShow: boolean = true;
+
   alert: any = {};
   isEnableAlert: boolean = false;
   survey: Survey = new Survey('', '', '', '');
@@ -29,33 +27,11 @@ export class HomeComponent {
 
   private flag: boolean = true;
   private time: Date;
-  private csrfToken: string = '';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private cookieService: CookieService,
-    private authService: AuthService
-  ) {
-    this.authService.getUserInformation().subscribe((data: any) => {
-      if (!this.isInfoUser(data['groups'])) {
-        this.router.navigate(['401']);
-      }
-    });
+  constructor(private apiService: ApiService) {
     this.positiveURL = this.positive.getURL();
     this.neutralURL = this.neutral.getURL();
     this.negativeURL = this.negative.getURL();
-    this.csrfToken = this.cookieService.get('csrftoken');
-  }
-
-  private isInfoUser(data: any[]): boolean {
-    if (
-      data.indexOf('infomotion-admin') === -1 &&
-      data.indexOf('infomotion-user') === -1
-    ) {
-      return false;
-    }
-    return true;
   }
 
   /**
@@ -117,13 +93,8 @@ export class HomeComponent {
 
   private createSurvey(survey: Survey) {
     try {
-      this.http
-        .post(url, survey, {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'X-CSRFToken': this.csrfToken
-          })
-        })
+      this.apiService
+        .post(url, survey)
         .subscribe(
           data => this.showAlert('success'),
           err => this.showAlert('fail'),
@@ -132,7 +103,6 @@ export class HomeComponent {
       window.setTimeout(function() {
         location.reload();
       }, env.delayTime);
-      return true;
     } catch {
       this.showAlert('fail');
     }

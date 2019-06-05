@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { env } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { isNull } from 'util';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { ApiService } from 'src/app/services/api.service';
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 const EXCEL_EXTENSION = '.xlsx';
 
-const baseURL = env.apiUrl + '/infomotion/survey';
+const baseURL = '/data_store/data/infomotion/survey/';
 
 @Component({
   selector: 'app-admin',
@@ -25,17 +24,7 @@ export class AdminComponent {
   private queryUrl: string = '';
   value: Date[];
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private authService: AuthService
-  ) {
-    this.authService.getUserInformation().subscribe((data: any) => {
-      if (data['groups'].indexOf('infomotion-admin') === -1) {
-        this.router.navigate(['401']);
-      }
-    });
-
+  constructor(private apiService: ApiService) {
     this.value = [];
   }
 
@@ -81,7 +70,7 @@ export class AdminComponent {
   }
 
   private getNumberOfRecords(query: string) {
-    return this.http.get(this.queryUrl).subscribe(data => {
+    this.apiService.get(this.queryUrl).subscribe(data => {
       if (data['count'] === 0) {
         alert('There is no record found');
       } else {
