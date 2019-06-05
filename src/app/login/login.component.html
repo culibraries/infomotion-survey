@@ -1,0 +1,19 @@
+  <div class="p-t-30 p-b-33">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="usr">IdentiKey / Username</label>
+        <input type="text" class="form-control" id="login-text" type="text" formControlName="username" name="username"
+          autofocus>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password</label>
+        <input type="password" class="form-control" id="login-password" type="password" name="password"
+          formControlName="password">
+      </div>
+
+      <button type="submit" class="btn btn-light">Log In</button>
+
+    </form>
+
+  </div>

@@ -1,43 +1,88 @@
 import { Injectable } from '@angular/core';
-import { env } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-
-const userUrl = env.baseUrl + '/user/?format=json';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { ApiService } from './api.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
+  private jwtHelper = new JwtHelperService();
+  constructor(private apiService: ApiService) {}
 
-  constructor(private http: HttpClient) {
+  isAuthenticated(token?: string): boolean {
+    const getToken = token ? token : localStorage.getItem('token');
+
+    if (!this.jwtHelper.isTokenExpired(getToken)) {
+      const tokenPayload = this.jwtHelper.decodeToken(getToken);
+      if (
+        tokenPayload.groups.includes('admin-infomotion') ||
+        tokenPayload.groups.includes('staff-infomotion')
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
-  /**
-   * isAuthenticated()
-   * TODO : This is not really a perfect way to handle authentication. This function suppose to return a boolean value
-   * which is : TRUE -> is authenticated, FALSE -> is not authenticated.
-   * In order to do that, the backend need to response 401 code -> unauthozied (FALSE) , 200 code -> success (TRUE)
-   */
-  public isAuthenticated() {
-    return this.http.get(userUrl).subscribe(
-      data => void 0,
-      err => this.login(), // This will redirect to the system login page
-      () => void 0
+  public isAdmin(token: string): boolean {
+    if (token) {
+      const tokenPayload = this.jwtHelper.decodeToken(token);
+      if (tokenPayload.groups.includes('admin-infomotion')) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  public isStaff(token: string): boolean {
+    if (token) {
+      const tokenPayload = this.jwtHelper.decodeToken(token);
+      if (tokenPayload.groups.includes('staff-infomotion')) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  getUserName(): string {
+    const token = localStorage.getItem('token');
+    const tokenPayload = this.jwtHelper.decodeToken(token);
+    return tokenPayload.username;
+  }
+
+  isUser(currentUser: string): boolean {
+    const token = localStorage.getItem('token');
+    const tokenPayload = this.jwtHelper.decodeToken(token);
+    return currentUser === tokenPayload.username ? true : false;
+  }
+
+  isTokenExist(): boolean {
+    return localStorage.hasOwnProperty('token');
+  }
+
+  login(username: string, password: string) {
+    return this.apiService.post('/token/', { username, password }).pipe(
+      map(data => {
+        localStorage.setItem('token', data.access);
+      })
     );
   }
 
-  public getUserInformation() {
-    return this.http.get(userUrl);
+  logout() {
+    localStorage.removeItem('token');
   }
-
-  public login() {
-    return window.location.href = env.apiAuthUrl + '/login/?next=/infomotion';
-  }
-
-  public logout() {
-    return window.location.href = env.apiAuthUrl + '/logout/?next=' + env.apiAuthUrl + '/login/?next=/infomotion';
-
-  }
-
 }

@@ -9,15 +9,16 @@
     </div>
   </div>
 </div>
-<div *ngIf="isAdmin">
-  <a routerLink="/" class="home-icon">
+
+<div *ngIf="isDisplay">
+  <a routerLink="" class="home-icon">
     <img src="assets/images/homepage.png" width="43px" style="margin: 15px">
   </a>
-  <a routerLink="/admin" class="admin-icon">
+  <a routerLink="admin" class="admin-icon" *ngIf="isAdmin">
     <img src="assets/images/admin.png" width="43px" style="margin: 15px">
   </a>
 </div>
 
-<a href="/api/api-auth/logout/?next=/api/api-auth/login/?next=/infomotion" class="logout-icon">
+<a routerLink="logout" class="logout-icon" *ngIf="isDisplay">
   <img src="assets/images/logout.png" width="40px" style="margin: 15px">
 </a>
