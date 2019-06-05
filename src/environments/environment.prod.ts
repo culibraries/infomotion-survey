@@ -1,7 +1,5 @@
 export const env = {
   production: true,
-  baseUrl: '/api',
-  apiUrl: '/api/data_store/data',
-  apiAuthUrl: '/api/api-auth',
+  apiUrl: 'https://libapps.colorado.edu/api',
   delayTime: 3000
 };
