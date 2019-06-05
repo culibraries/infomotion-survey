@@ -43,7 +43,8 @@ Icon Actived Color: #DC3545
 https://github.com/culibraries/infomotion-survey/wiki
 
 ## TODO
-1. Switch the authentication method from Session to Token-based (JWT)
+
+1. Switch the authentication method from Session to Token-based (JWT) - DONE
 2. Intergrate with IdentiKey System/Grouper at CU Boulder
 3. CI/CD using Rancher to deploy to AWS EC2
 
