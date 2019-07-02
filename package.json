@@ -1,6 +1,6 @@
 {
   "name": "infomotion-survey",
-  "version": "v1.0.1",
+  "version": "v1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
