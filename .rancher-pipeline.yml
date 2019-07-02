@@ -1,0 +1,11 @@
+stages:
+- name: ' Build and Publish'
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: culibraries:infomotion:1.1.0
+      pushRemote: true
+      registry: index.docker.io
+timeout: 60
+notification: {}
