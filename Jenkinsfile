@@ -1,10 +1,13 @@
 node {
-    def app
-    stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    stage(' GIT CHECKOUT') {
+        git(branch: 'devops', credentialsId: 'dutr5288-github', url: 'git@github.com:culibraries/infomotion-survey.git')
     }
-    stage('Verify Docker'){
-        sh 'docker version'
+    stage('BUILD IMAGES ') {
+        app = docker.build('culibraries/infomotion:1.1.0')
+    }
+    stage('Deploy Image') {
+      docker.withRegistry( '', 'trinhdh-dockerhub' ) {
+        app.push()
+      }
     }
 }
