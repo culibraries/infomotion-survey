@@ -5,6 +5,7 @@ node {
   
     def namespace = 'cybercom'
     def clusterName = 'cu-libraries'
+    def contextName = 'cu-libraries'
   
     stage('CHECKOUT') {
       git(branch: 'devops', credentialsId: 'dutr5288-github', url: "${gitURL}")
@@ -23,7 +24,8 @@ node {
       withKubeConfig([credentialsId: 'rancher-kubectl', 
                       serverUrl: 'https://libops.colorado.edu/k8s/clusters/c-bjn7n',
                       clusterName: "${clusterName}",
-                      namespace: "${namespace}" ]) {
+                      namespace: "${namespace}",
+                      contextName: "${contextName}"]) {
         sh "kubectl set image deployment/test-infomotion test-infomotion=${imageName}:${imageTag}"
         }
      }
