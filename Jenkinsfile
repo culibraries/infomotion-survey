@@ -12,8 +12,11 @@ node {
       }
     }*/
    stage('DEPLOY') {
-    withKubeConfig([credentialsId: 'rancher-kubectl', serverUrl: 'https://libops.colorado.edu/k8s/clusters/c-bjn7n']) {
-      sh 'kubectl set image deployment/test-infomotion test-infomotion=culibraries/infomotion:1.1.0 -n cybercom'
+    withKubeConfig([credentialsId: 'rancher-kubectl', 
+                    serverUrl: 'https://libops.colorado.edu/k8s/clusters/c-bjn7n',
+                    clusterName: 'cu-libraries',
+                    namespace: 'cybercom']) {
+      sh 'kubectl set image deployment/test-infomotion test-infomotion=culibraries/infomotion:1.1.0'
     }
   }
 }
