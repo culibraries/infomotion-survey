@@ -12,6 +12,6 @@ node {
       }
     }*/
    stage('DEPLOY') {
-         sh 'kubectl get pods'
+         sh 'kubectl get pods -n cybercom'
   }
 }
