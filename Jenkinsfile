@@ -1,11 +1,11 @@
 node {
-    stage(' GIT CHECKOUT') {
+    stage('CHECKOUT') {
         git(branch: 'devops', credentialsId: 'dutr5288-github', url: 'git@github.com:culibraries/infomotion-survey.git')
     }
-    stage('BUILD IMAGES ') {
+    stage('BUILD') {
         app = docker.build('culibraries/infomotion:1.1.0')
     }
-    stage('Deploy Image') {
+    stage('PUSH TO DOCKERHUB') {
       docker.withRegistry( '', 'trinhdh-dockerhub' ) {
         app.push()
       }
