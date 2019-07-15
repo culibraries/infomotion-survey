@@ -12,11 +12,6 @@ node {
       }
     }*/
    stage('DEPLOY') {
-    withKubeConfig([credentialsId: 'rancher-kubectl', 
-                    serverUrl: 'https://libops.colorado.edu/k8s/clusters/c-bjn7n/api',
-                    clusterName: 'cu-libraries',
-                    namespace: 'cybercom']) {
          sh 'kubectl get pods'
-    }
   }
 }
