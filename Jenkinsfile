@@ -17,5 +17,6 @@ node {
                       clusterName: 'cu-libraries',
                       namespace: 'cybercom']) {
         sh 'kubectl set image deployment/test-infomotion test-infomotion=culibraries/infomotion:1.1.0-will-be-removed'
-    }
+        }
+     }
 }
