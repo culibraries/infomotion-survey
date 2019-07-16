@@ -7,7 +7,6 @@ node {
     def clusterName = 'cu-libraries'
     def contextName = 'cu-libraries'
   try {
- /*
     stage('CHECKOUT') {
       git(branch: 'devops', credentialsId: 'dutr5288-github', url: "${gitURL}")
     }
@@ -29,7 +28,7 @@ node {
                       contextName: "${contextName}"]) {
         sh "kubectl set image deployment/test-infomotion test-infomotion=${imageName}:${imageTag}"
         }
-     }*/
+     }
     stage('CLEAN UP') {
      sh 'docker image prune -a -f'
      slackSend message: "${imageName}:${imageTag} : BUILD SUCCESS"
