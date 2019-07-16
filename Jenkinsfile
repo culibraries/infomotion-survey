@@ -7,6 +7,7 @@ node {
     def clusterName = 'cu-libraries'
     def contextName = 'cu-libraries'
   try {
+    slackSend message: "${imageName}:${imageTag} : START"
     stage('CHECKOUT') {
       git(branch: 'devops', credentialsId: 'dutr5288-github', url: "${gitURL}")
     }
