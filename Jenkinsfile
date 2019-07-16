@@ -34,7 +34,7 @@ node {
      sh 'docker image prune -a -f'
      slackSend message: 'BUILD SUCCESS'
    } 
-  } catch() {
+  } catch (Exception ex) {
     sh 'docker image prune -a -f'
      slackSend message: 'FAIL !!!'
   }
