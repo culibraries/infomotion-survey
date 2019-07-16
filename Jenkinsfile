@@ -30,6 +30,6 @@ node {
         }
      }
     stage('CLEAN UP') {
-     sh 'docker image prune -f'
+     sh 'docker image prune -a -f'
    } 
 }
