@@ -6,7 +6,8 @@ node {
     def namespace = 'cybercom'
     def clusterName = 'cu-libraries'
     def contextName = 'cu-libraries'
-  
+  try {
+ /*
     stage('CHECKOUT') {
       git(branch: 'devops', credentialsId: 'dutr5288-github', url: "${gitURL}")
     }
@@ -28,8 +29,14 @@ node {
                       contextName: "${contextName}"]) {
         sh "kubectl set image deployment/test-infomotion test-infomotion=${imageName}:${imageTag}"
         }
-     }
+     }*/
     stage('CLEAN UP') {
      sh 'docker image prune -a -f'
+     slackSend message: 'BUILD SUCCESS'
    } 
+  } catch() {
+    sh 'docker image prune -a -f'
+     slackSend message: 'FAIL !!!'
+  }
+    
 }
