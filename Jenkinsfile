@@ -32,11 +32,11 @@ node {
      }*/
     stage('CLEAN UP') {
      sh 'docker image prune -a -f'
-     slackSend message: 'BUILD SUCCESS'
+     slackSend message: "${imageName}:${imageTag} : BUILD SUCCESS"
    } 
   } catch (Exception ex) {
     sh 'docker image prune -a -f'
-     slackSend message: 'FAIL !!!'
+    slackSend message: "${imageName}:${imageTag} : FAIL !!!"
   }
     
 }
