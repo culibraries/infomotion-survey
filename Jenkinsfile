@@ -32,11 +32,11 @@ node {
      }
     stage('CLEAN UP') {
      sh 'docker image prune -a -f'
-     slackSend message: "${imageName}:${imageTag} : BUILD SUCCESS"
+     slackSend message: "${imageName}:${imageTag} : BUILD SUCCESS - Build #: ${env.BUILD_NUMBER} - Log: http://libbox.colorado.edu/job/staging/job/infomotion/${env.BUILD_NUMBER}/consoleText"
    } 
   } catch (Exception ex) {
     sh 'docker image prune -a -f'
-    slackSend message: "${imageName}:${imageTag} : FAIL !!!"
+    slackSend message: "${imageName}:${imageTag} : FAILED - Build #: ${env.BUILD_NUMBER} - Log: http://libbox.colorado.edu/job/staging/job/infomotion/${env.BUILD_NUMBER}/consoleText"
   }
     
 }
