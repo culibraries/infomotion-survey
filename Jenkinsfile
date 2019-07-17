@@ -9,7 +9,7 @@ node {
   try {
     slackSend message: "${imageName}:${imageTag} : START"
     stage('CHECKOUT') {
-      git(branch: 'devops', credentialsId: 'dutr5288-github', url: "${gitURL}")
+      git(branch: 'demo-release', credentialsId: 'dutr5288-github', url: "${gitURL}")
     }
   
     stage('BUILD') {
