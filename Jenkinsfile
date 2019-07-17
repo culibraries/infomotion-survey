@@ -21,7 +21,7 @@ node {
         app.push()
       }
     }
-    stage('DEPLOY') {
+    stage('DEPLOY:-> STAGING') {
       withKubeConfig([credentialsId: 'rancher-kubectl', 
                       serverUrl: 'https://libops.colorado.edu/k8s/clusters/c-bjn7n',
                       clusterName: "${clusterName}",
