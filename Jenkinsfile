@@ -1,7 +1,7 @@
 node {
     def gitURL = 'git@github.com:culibraries/infomotion-survey.git'
     def imageName = 'culibraries/infomotion'
-    def imageTag = '1.3.2
+    def imageTag = '1.3.3'
   
     def namespace = 'cybercom'
     def clusterName = 'cu-libraries'
